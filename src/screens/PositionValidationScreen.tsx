@@ -31,7 +31,7 @@ const PositionValidationScreen = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [editingPosition, setEditingPosition] = useState<Position | null>(null);
-  const videoRef = useRef<Video>(null);
+  const videoRef = useRef<typeof Video>(null);
 
   useEffect(() => {
     fetchProcessedData();
