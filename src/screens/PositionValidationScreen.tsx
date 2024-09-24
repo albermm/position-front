@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
-import Video from 'react-native-video';
+import Video, { VideoRef } from 'react-native-video';
 import Slider from '@react-native-community/slider';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import axios from 'axios';
@@ -31,7 +31,7 @@ const PositionValidationScreen = () => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [editingPosition, setEditingPosition] = useState<Position | null>(null);
-  const videoRef = useRef<typeof Video>(null);
+  const videoRef = useRef<VideoRef>(null);
 
   useEffect(() => {
     fetchProcessedData();
@@ -61,6 +61,7 @@ const PositionValidationScreen = () => {
     }
     updateCurrentPosition(value);
   };
+
 
   const updateCurrentPosition = (time: number) => {
     const position = positions.find(p => time >= (p.startTime || 0) && time <= (p.endTime || duration));
@@ -108,9 +109,7 @@ const PositionValidationScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {fileType === 'image' && mediaUrl && (
-        <Image source={{ uri: mediaUrl }} style={styles.media} resizeMode="contain" />
-      )}
+      {/* ... (other JSX remains the same) */}
       {fileType === 'video' && mediaUrl && (
         <View>
           <Video
