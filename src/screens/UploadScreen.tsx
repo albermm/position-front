@@ -1,71 +1,25 @@
-// src/screens/UploadScreen.tsx
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, Alert } from 'react-native';
-import { Button, Text } from '@rneui/themed';
+import { View, StyleSheet, Image, Alert, Button, Text } from 'react-native';
 import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
-import { useAppContext } from '../context/AppContext';
+import Video from 'react-native-video';
 import axios from 'axios';
-import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
-import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
+import { useAuth } from '../context/AuthContext';
 
 const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing';
-const IDENTITY_POOL_ID = 'us-east-1:fb9b4aa0-5b5d-40fc-97b0-7f51471252e6';
-const USER_POOL_ID = 'us-east-1_QJJ74aa1b';
-const CLIENT_ID = '6m04urkdq3o76k6gjah9jm99p9';
-const REGION = 'us-east-1';
 
-interface Credentials {
-  identityId: string;
-  token: string;
-}
+type UploadScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Upload'>;
 
 const UploadScreen: React.FC = () => {
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [result, setResult] = useState<{ mediaUrl: string; positionName: string; mediaType: 'image' | 'video' } | null>(null);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
-  const { user, setIsLoading, setError } = useAppContext();
 
-  const getCredentials = async (): Promise<Credentials> => {
-    if (!user || !user.cognitoUser) {
-      throw new Error('User not authenticated');
-    }
-
-    return new Promise((resolve, reject) => {
-      (user.cognitoUser as CognitoUser).getSession((err: Error | null, session: CognitoUserSession | null) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        if (!session) {
-          reject(new Error('No session found'));
-          return;
-        }
-
-        const cognitoIdentityClient = new CognitoIdentityClient({
-          credentials: fromCognitoIdentityPool({
-            clientConfig: { region: REGION },
-            identityPoolId: IDENTITY_POOL_ID,
-            logins: {
-              [`cognito-idp.${REGION}.amazonaws.com/${USER_POOL_ID}`]: session.getIdToken().getJwtToken(),
-            },
-          }),
-        });
-
-        cognitoIdentityClient.config.credentials().then((credentials: any) => {
-          if (typeof credentials.identityId === 'string') {
-            resolve({
-              identityId: credentials.identityId,
-              token: session.getIdToken().getJwtToken()
-            });
-          } else {
-            reject(new Error('Invalid credentials format'));
-          }
-        }).catch(reject);
-      });
-    });
-  };
+  const navigation = useNavigation<UploadScreenNavigationProp>();
+  const { getCredentials, signOut } = useAuth();
 
   const pickMedia = async () => {
     const options: ImageLibraryOptions = {
@@ -91,13 +45,12 @@ const UploadScreen: React.FC = () => {
   const uploadMedia = async (asset: Asset) => {
     if (!asset.uri) return;
     setIsUploading(true);
+    setResult(null);
     setCurrentJobId(null);
 
     try {
       const credentials = await getCredentials();
-      console.log('Obtained credentials:', credentials.identityId);
       const mediaType = asset.type?.startsWith('video') ? 'video' : 'image';
-      console.log('Requesting upload URL for media type:', mediaType);
 
       const urlResponse = await axios.get(`${API_URL}/get_upload_url`, {
         params: { 
@@ -109,11 +62,7 @@ const UploadScreen: React.FC = () => {
         }
       });
 
-      console.log('Received upload URL response:', urlResponse.data);
-
       const { file_name, presigned_post, job_id } = urlResponse.data;
-
-      const actualFileName = file_name;
 
       const formData = new FormData();
       Object.entries(presigned_post.fields).forEach(([key, value]) => {
@@ -123,10 +72,8 @@ const UploadScreen: React.FC = () => {
       formData.append('file', {
         uri: asset.uri,
         type: asset.type || 'image/jpeg',
-        name: actualFileName,
+        name: file_name,
       } as any);
-
-      console.log(`Uploading file: ${actualFileName}`);
 
       const uploadResponse = await fetch(presigned_post.url, {
         method: 'POST',
@@ -140,8 +87,6 @@ const UploadScreen: React.FC = () => {
         throw new Error(`Upload failed with status ${uploadResponse.status}`);
       }
 
-      console.log(`File uploaded successfully. File name: ${actualFileName}, Job ID: ${job_id}`);
-
       setCurrentJobId(job_id);
       if (mediaType === 'video') {
         Alert.alert('Success', 'Video uploaded successfully. Processing may take longer for videos.');
@@ -150,26 +95,72 @@ const UploadScreen: React.FC = () => {
       }
     } catch (error) {
       console.error('Error in uploadMedia:', error);
-      if (axios.isAxiosError(error)) {
-        console.error('Axios error details:', error.response?.data);
-        console.error('Axios error status:', error.response?.status);
-        console.error('Axios error headers:', error.response?.headers);
-      }
       Alert.alert('Error', `Failed to upload media: ${(error as Error).message}`);
     } finally {
       setIsUploading(false);
     }
   };
 
+  const checkProcessingStatus = async () => {
+    if (!currentJobId) {
+      Alert.alert('Error', 'No job in progress. Please upload an image or video first.');
+      return;
+    }
+
+    try {
+      const credentials = await getCredentials();
+      const response = await axios.get(`${API_URL}/get_job_status/${currentJobId}`, {
+        params: { user_id: credentials.identityId },
+        headers: {
+          'Authorization': `Bearer ${credentials.token}`
+        }
+      });
+
+      const { status, image_url, video_url, position, file_type } = response.data;
+
+      if (status === 'COMPLETED') {
+        setResult({
+          mediaUrl: file_type === 'image' ? image_url : video_url,
+          positionName: position,
+          mediaType: file_type as 'image' | 'video'
+        });
+        Alert.alert('Processing Complete', `Your ${file_type} has been processed. The detected position is: ${position}`);
+      } else if (status === 'PROCESSING') {
+        Alert.alert('In Progress', 'Your media is still being processed. Please check again later.');
+      } else if (status === 'FAILED') {
+        Alert.alert('Error', 'Media processing failed. Please try uploading again.');
+      } else {
+        Alert.alert('Unknown Status', `Current status: ${status}. Please try again later.`);
+      }
+    } catch (error) {
+      console.error('Error checking processing status:', error);
+      Alert.alert('Error', 'Failed to check processing status. Please try again.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text h3 style={styles.title}>Upload Media</Text>
-      <Button title="Pick an image or video" onPress={pickMedia} loading={isUploading} />
+      <Button title="Pick an image or video" onPress={pickMedia} />
+      <Button title="Sign Out" onPress={signOut} />
+      {isUploading && <Text>Uploading...</Text>}
+      {currentJobId && <Button title="Check Processing Status" onPress={checkProcessingStatus} />}
       {selectedMedia && (
-        <Image source={{ uri: selectedMedia }} style={styles.preview} />
+        <Image source={{ uri: selectedMedia }} style={styles.media} />
       )}
-      {currentJobId && (
-        <Text>Current Job ID: {currentJobId}</Text>
+      {result && (
+        <View>
+          <Text style={styles.result}>Predicted Position: {result.positionName}</Text>
+          {result.mediaType === 'image' ? (
+            <Image source={{ uri: result.mediaUrl }} style={styles.media} />
+          ) : (
+            <Video 
+              source={{ uri: result.mediaUrl }} 
+              style={styles.media}
+              controls={true}
+              resizeMode="contain"
+            />
+          )}
+        </View>
       )}
     </View>
   );
@@ -179,17 +170,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
-  title: {
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  preview: {
-    width: 200,
-    height: 200,
-    alignSelf: 'center',
+  media: {
+    width: 300,
+    height: 300,
     marginTop: 20,
+  },
+  result: {
+    marginTop: 20,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

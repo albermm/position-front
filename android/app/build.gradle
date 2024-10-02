@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.bjjpositionanalyzer"
+    namespace "com.bjjfront"
     defaultConfig {
-        applicationId "com.bjjpositionanalyzer"
+        applicationId "com.bjjfront"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

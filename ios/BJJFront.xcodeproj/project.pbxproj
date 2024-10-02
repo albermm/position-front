@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* BJJPositionAnalyzerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BJJPositionAnalyzerTests.m */; };
-		09668F7B2CA3BCDE00347289 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09668F7A2CA3BCDD00347289 /* Info.plist */; };
+		00E356F31AD99517003FC87E /* BJJFrontTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BJJFrontTests.m */; };
+		0C80B921A6F3F58F76C31292 /* libPods-BJJFront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-BJJFront.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		31B299A8EF19970252D03B44 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A90CB8EA98D11E56E9FAA0DF /* PrivacyInfo.xcprivacy */; };
+		573FECB27DC2022DB7FF367B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC59C71967625D893615EA29 /* PrivacyInfo.xcprivacy */; };
+		7699B88040F8A987B510C191 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BJJFront-BJJFrontTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8873658EED0214905224FE37 /* libPods-BJJPositionAnalyzer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 575EFA5486A7DAF024A8C62E /* libPods-BJJPositionAnalyzer.a */; };
-		B18974EE1D8537D5A31092D4 /* libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9504242473FCB7901B0404 /* libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,30 +23,29 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = BJJPositionAnalyzer;
+			remoteInfo = BJJFront;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* BJJPositionAnalyzerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BJJPositionAnalyzerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* BJJFrontTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BJJFrontTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* BJJPositionAnalyzerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJJPositionAnalyzerTests.m; sourceTree = "<group>"; };
-		09668F7A2CA3BCDD00347289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = BJJPositionAnalyzer/Info.plist; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BJJPositionAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BJJPositionAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BJJPositionAnalyzer/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = BJJPositionAnalyzer/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BJJPositionAnalyzer/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BJJPositionAnalyzer/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BJJPositionAnalyzer/main.m; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BJJPositionAnalyzer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		4786C77CA17636B9F3186842 /* Pods-BJJPositionAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJPositionAnalyzer.debug.xcconfig"; path = "Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
-		575EFA5486A7DAF024A8C62E /* libPods-BJJPositionAnalyzer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJPositionAnalyzer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E9504242473FCB7901B0404 /* libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		735B06268DD72D4902847A65 /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.release.xcconfig"; path = "Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BJJPositionAnalyzer/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		98FF120956C6862D9052DF19 /* Pods-BJJPositionAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJPositionAnalyzer.release.xcconfig"; path = "Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
-		A90CB8EA98D11E56E9FAA0DF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = BJJPositionAnalyzer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		DF217587028F334732A8720E /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.debug.xcconfig"; path = "Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* BJJFrontTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJJFrontTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BJJFront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BJJFront.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BJJFront/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = BJJFront/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BJJFront/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BJJFront/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BJJFront/main.m; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BJJFront/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-BJJFront-BJJFrontTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront-BJJFrontTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4392A12AC88292D35C810B /* Pods-BJJFront.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-BJJFront.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.release.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-BJJFront.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BJJFront/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-BJJFront-BJJFrontTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.release.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.release.xcconfig"; sourceTree = "<group>"; };
+		CC59C71967625D893615EA29 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = BJJFront/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -56,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B18974EE1D8537D5A31092D4 /* libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,20 +62,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8873658EED0214905224FE37 /* libPods-BJJPositionAnalyzer.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-BJJFront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* BJJPositionAnalyzerTests */ = {
+		00E356EF1AD99517003FC87E /* BJJFrontTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* BJJPositionAnalyzerTests.m */,
+				00E356F21AD99517003FC87E /* BJJFrontTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = BJJPositionAnalyzerTests;
+			path = BJJFrontTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -88,7 +86,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* BJJPositionAnalyzer */ = {
+		13B07FAE1A68108700A75B9A /* BJJFront */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -98,17 +96,17 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
-				A90CB8EA98D11E56E9FAA0DF /* PrivacyInfo.xcprivacy */,
+				CC59C71967625D893615EA29 /* PrivacyInfo.xcprivacy */,
 			);
-			name = BJJPositionAnalyzer;
+			name = BJJFront;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				575EFA5486A7DAF024A8C62E /* libPods-BJJPositionAnalyzer.a */,
-				5E9504242473FCB7901B0404 /* libPods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-BJJFront.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-BJJFront-BJJFrontTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,10 +121,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				09668F7A2CA3BCDD00347289 /* Info.plist */,
-				13B07FAE1A68108700A75B9A /* BJJPositionAnalyzer */,
+				13B07FAE1A68108700A75B9A /* BJJFront */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* BJJPositionAnalyzerTests */,
+				00E356EF1AD99517003FC87E /* BJJFrontTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -139,8 +136,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BJJPositionAnalyzer.app */,
-				00E356EE1AD99517003FC87E /* BJJPositionAnalyzerTests.xctest */,
+				13B07F961A680F5B00A75B9A /* BJJFront.app */,
+				00E356EE1AD99517003FC87E /* BJJFrontTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,10 +145,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4786C77CA17636B9F3186842 /* Pods-BJJPositionAnalyzer.debug.xcconfig */,
-				98FF120956C6862D9052DF19 /* Pods-BJJPositionAnalyzer.release.xcconfig */,
-				DF217587028F334732A8720E /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.debug.xcconfig */,
-				735B06268DD72D4902847A65 /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-BJJFront.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-BJJFront.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-BJJFront-BJJFrontTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -159,46 +156,46 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* BJJPositionAnalyzerTests */ = {
+		00E356ED1AD99517003FC87E /* BJJFrontTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BJJPositionAnalyzerTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BJJFrontTests" */;
 			buildPhases = (
-				883F7D32E350FB670CE0A2F4 /* [CP] Check Pods Manifest.lock */,
+				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				B44A7A0599F46253FEF06903 /* [CP] Embed Pods Frameworks */,
-				BC812C6D1FC3CA43E655E731 /* [CP] Copy Pods Resources */,
+				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
+				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = BJJPositionAnalyzerTests;
-			productName = BJJPositionAnalyzerTests;
-			productReference = 00E356EE1AD99517003FC87E /* BJJPositionAnalyzerTests.xctest */;
+			name = BJJFrontTests;
+			productName = BJJFrontTests;
+			productReference = 00E356EE1AD99517003FC87E /* BJJFrontTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* BJJPositionAnalyzer */ = {
+		13B07F861A680F5B00A75B9A /* BJJFront */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BJJPositionAnalyzer" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BJJFront" */;
 			buildPhases = (
-				A0768F87B79A4D0FF7AF0CE6 /* [CP] Check Pods Manifest.lock */,
+				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				DFD2D9EAADD71C450A490A5B /* [CP] Embed Pods Frameworks */,
-				13E288B2B1E55B40F61F0F8C /* [CP] Copy Pods Resources */,
+				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
+				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = BJJPositionAnalyzer;
-			productName = BJJPositionAnalyzer;
-			productReference = 13B07F961A680F5B00A75B9A /* BJJPositionAnalyzer.app */;
+			name = BJJFront;
+			productName = BJJFront;
+			productReference = 13B07F961A680F5B00A75B9A /* BJJFront.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -218,7 +215,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BJJPositionAnalyzer" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BJJFront" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -231,8 +228,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* BJJPositionAnalyzer */,
-				00E356ED1AD99517003FC87E /* BJJPositionAnalyzerTests */,
+				13B07F861A680F5B00A75B9A /* BJJFront */,
+				00E356ED1AD99517003FC87E /* BJJFrontTests */,
 			);
 		};
 /* End PBXProject section */
@@ -249,10 +246,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09668F7B2CA3BCDE00347289 /* Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				31B299A8EF19970252D03B44 /* PrivacyInfo.xcprivacy in Resources */,
+				573FECB27DC2022DB7FF367B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,24 +271,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		13E288B2B1E55B40F61F0F8C /* [CP] Copy Pods Resources */ = {
+		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		883F7D32E350FB670CE0A2F4 /* [CP] Check Pods Manifest.lock */ = {
+		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -307,14 +303,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BJJFront-BJJFrontTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A0768F87B79A4D0FF7AF0CE6 /* [CP] Check Pods Manifest.lock */ = {
+		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -329,62 +325,62 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BJJPositionAnalyzer-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BJJFront-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B44A7A0599F46253FEF06903 /* [CP] Embed Pods Frameworks */ = {
+		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC812C6D1FC3CA43E655E731 /* [CP] Copy Pods Resources */ = {
+		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests/Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFD2D9EAADD71C450A490A5B /* [CP] Embed Pods Frameworks */ = {
+		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJPositionAnalyzer/Pods-BJJPositionAnalyzer-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -394,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* BJJPositionAnalyzerTests.m in Sources */,
+				00E356F31AD99517003FC87E /* BJJFrontTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +408,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* BJJPositionAnalyzer */;
+			target = 13B07F861A680F5B00A75B9A /* BJJFront */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -420,14 +416,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF217587028F334732A8720E /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = BJJPositionAnalyzerTests/Info.plist;
+				INFOPLIST_FILE = BJJFrontTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -441,17 +437,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BJJPositionAnalyzer.app/BJJPositionAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BJJFront.app/BJJFront";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 735B06268DD72D4902847A65 /* Pods-BJJPositionAnalyzer-BJJPositionAnalyzerTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-BJJFront-BJJFrontTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = BJJPositionAnalyzerTests/Info.plist;
+				INFOPLIST_FILE = BJJFrontTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -465,20 +461,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BJJPositionAnalyzer.app/BJJPositionAnalyzer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BJJFront.app/BJJFront";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4786C77CA17636B9F3186842 /* Pods-BJJPositionAnalyzer.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-BJJFront.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = BJJPositionAnalyzer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BJJPositionAnalyzer;
+				INFOPLIST_FILE = BJJFront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,7 +485,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BJJPositionAnalyzer;
+				PRODUCT_NAME = BJJFront;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -499,13 +494,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98FF120956C6862D9052DF19 /* Pods-BJJPositionAnalyzer.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-BJJFront.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = BJJPositionAnalyzer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BJJPositionAnalyzer;
+				INFOPLIST_FILE = BJJFront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,7 +511,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BJJPositionAnalyzer;
+				PRODUCT_NAME = BJJFront;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -686,7 +680,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BJJPositionAnalyzerTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BJJFrontTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -695,7 +689,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BJJPositionAnalyzer" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BJJFront" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -704,7 +698,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BJJPositionAnalyzer" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BJJFront" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

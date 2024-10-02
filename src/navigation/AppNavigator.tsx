@@ -1,24 +1,17 @@
-// src/navigation/AppNavigator.tsx
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import AuthScreen from '../screens/AuthScreen';
 import UploadScreen from '../screens/UploadScreen';
 import PositionValidationScreen from '../screens/PositionValidationScreen';
-//import AnalysisScreen from '../screens/AnalysisScreen';
 import RecommendationsScreen from '../screens/RecommendationsScreen';
 
-// Define the type for the navigation parameters
 export type RootStackParamList = {
   Auth: undefined;
   Upload: undefined;
-  PositionValidation: undefined;
-  Analysis: undefined;
+  PositionValidation: { jobId: string; userId: string; fileType: string };
   Recommendations: undefined;
 };
-
-// Create a type for the navigation prop
-export type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 

@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface BJJPositionAnalyzerTests : XCTestCase
+@interface BJJFrontTests : XCTestCase
 
 @end
 
-@implementation BJJPositionAnalyzerTests
+@implementation BJJFrontTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

@@ -1,4 +1,4 @@
-package com.bjjpositionanalyzer
+package com.bjjfront
 
 import android.app.Application
 import com.facebook.react.PackageList
