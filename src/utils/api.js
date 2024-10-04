@@ -2,7 +2,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'https://your-api-url.com'; // Replace with your actual API URL
+const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing'; // Replace with your actual API URL
 
 const api = axios.create({
   baseURL: API_URL,

@@ -3,30 +3,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuthScreen from '../screens/AuthScreen';
 import UploadScreen from '../screens/UploadScreen';
-import PositionValidationScreen from '../screens/PositionValidationScreen';
-import RecommendationsScreen from '../screens/RecommendationsScreen';
+import { useAuth } from '../context/AuthContext';
 
 export type RootStackParamList = {
   Auth: undefined;
   Upload: undefined;
-  PositionValidation: { jobId: string; userId: string; fileType: string };
-  Recommendations: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
-        <Stack.Screen 
-          name="Auth" 
-          component={AuthScreen} 
-          options={{ headerShown: false }} 
-        />
-        <Stack.Screen name="Upload" component={UploadScreen} />
-        <Stack.Screen name="PositionValidation" component={PositionValidationScreen} />
-        <Stack.Screen name="Recommendations" component={RecommendationsScreen} />
+      <Stack.Navigator>
+        {isAuthenticated ? (
+          <Stack.Screen name="Upload" component={UploadScreen} />
+        ) : (
+          <Stack.Screen name="Auth" component={AuthScreen} options={{ headerShown: false }} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

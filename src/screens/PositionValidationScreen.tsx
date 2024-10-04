@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import axios from 'axios';
 
+
 type RouteParams = {
   jobId: string;
   fileType: 'image' | 'video';

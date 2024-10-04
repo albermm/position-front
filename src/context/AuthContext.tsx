@@ -1,12 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { CognitoUserPool, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { Alert } from 'react-native';
+import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import Config from '../config';
 
-const IDENTITY_POOL_ID = 'us-east-1:fb9b4aa0-5b5d-40fc-97b0-7f51471252e6';
-const USER_POOL_ID = 'us-east-1_QJJ74aa1b';
-const CLIENT_ID = '6m04urkdq3o76k6gjah9jm99p9';
-const REGION = 'us-east-1';
+const IDENTITY_POOL_ID = Config.IDENTITY_POOL_ID;
+const USER_POOL_ID = Config.USER_POOL_ID;
+const CLIENT_ID = Config.CLIENT_ID;
+const REGION = Config.REGION;
 
 const userPool = new CognitoUserPool({
   UserPoolId: USER_POOL_ID,
@@ -19,6 +21,8 @@ type AuthContextType = {
   signIn: (username: string, password: string) => Promise<void>;
   signOut: () => void;
   getCredentials: () => Promise<{ identityId: string; token: string }>;
+  checkAuthState: () => Promise<void>;
+  completeNewPasswordChallenge: (newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,10 +30,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cognitoUser, setCognitoUser] = useState<CognitoUser | null>(null);
-
-  useEffect(() => {
-    checkAuthState();
-  }, []);
 
   const checkAuthState = async () => {
     try {
@@ -55,7 +55,57 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signIn = async (username: string, password: string) => {
-    // Implement sign in logic here
+    return new Promise<void>((resolve, reject) => {
+      const authenticationDetails = new AuthenticationDetails({
+        Username: username,
+        Password: password,
+      });
+
+      const user = new CognitoUser({
+        Username: username,
+        Pool: userPool,
+      });
+
+      user.authenticateUser(authenticationDetails, {
+        onSuccess: (session) => {
+          setCognitoUser(user);
+          setIsAuthenticated(true);
+          resolve();
+        },
+        onFailure: (err) => {
+          console.error('Error signing in:', err);
+          reject(err);
+        },
+        newPasswordRequired: (userAttributes, requiredAttributes) => {
+          setCognitoUser(user);
+          reject(new Error('New password required'));
+        },
+      });
+    });
+  };
+
+  const completeNewPasswordChallenge = async (newPassword: string) => {
+    return new Promise<void>((resolve, reject) => {
+      if (!cognitoUser) {
+        reject(new Error('No user found'));
+        return;
+      }
+
+      cognitoUser.completeNewPasswordChallenge(
+        newPassword,
+        {},
+        {
+          onSuccess: (session: CognitoUserSession) => {
+            setIsAuthenticated(true);
+            resolve();
+          },
+          onFailure: (err: any) => {
+            console.error('Error changing password:', err);
+            reject(err);
+          },
+        }
+      );
+    });
   };
 
   const signOut = () => {
@@ -108,7 +158,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, cognitoUser, signIn, signOut, getCredentials }}>
+    <AuthContext.Provider value={{ isAuthenticated, cognitoUser, signIn, signOut, getCredentials, checkAuthState, completeNewPasswordChallenge }}>
       {children}
     </AuthContext.Provider>
   );
