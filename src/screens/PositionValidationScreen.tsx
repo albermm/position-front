@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
-import Video, { VideoRef } from 'react-native-video';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, ViewStyle } from 'react-native';
+import Video, { OnLoadData, OnProgressData, VideoRef } from 'react-native-video';
 import Slider from '@react-native-community/slider';
-import { useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
+import { Table, Row, TableProps } from 'react-native-table-component';
 
 
 type RouteParams = {
@@ -15,15 +17,30 @@ type RouteParams = {
 type Position = {
   id: string;
   name: string;
-  startTime?: number;
-  endTime?: number;
+  startTime: number;
+  endTime: number;
+  duration: number;
 };
+
+type RootStackParamList = {
+  SearchPosition: {
+    position: Position;
+    onUpdate: (updatedPosition: Position) => void;
+  };
+  PositionValidation: RouteParams;
+};
+
+type PositionValidationScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'PositionValidation'
+>;
 
 const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing';
 
-const PositionValidationScreen = () => {
-  const route = useRoute<RouteProp<Record<string, RouteParams>, string>>();
+const PositionValidationScreen: React.FC = () => {
+  const route = useRoute<RouteProp<RootStackParamList, 'PositionValidation'>>();
   const { jobId, fileType, userId } = route.params;
+  const navigation = useNavigation<PositionValidationScreenNavigationProp>();
 
   const [mediaUrl, setMediaUrl] = useState<string | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
@@ -31,27 +48,32 @@ const PositionValidationScreen = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [editingPosition, setEditingPosition] = useState<Position | null>(null);
   const videoRef = useRef<VideoRef>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProcessedData();
   }, []);
 
   const fetchProcessedData = async () => {
+    setIsLoading(true);
+    setError(null);
     try {
       const response = await axios.get(`${API_URL}/get_job_status/${jobId}?user_id=${userId}`);
-      const { status, image_url, video_url, positions } = response.data;
+      const { status, video_url, positions } = response.data;
 
       if (status === 'COMPLETED') {
-        setMediaUrl(fileType === 'image' ? image_url : video_url);
+        setMediaUrl(video_url);
         setPositions(positions);
       } else {
-        Alert.alert('Error', 'Processing not completed yet. Please try again later.');
+        setError('Processing not completed yet. Please try again later.');
       }
     } catch (error) {
       console.error('Error fetching processed data:', error);
-      Alert.alert('Error', 'Failed to fetch processed data. Please try again.');
+      setError('Failed to fetch processed data. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,29 +85,32 @@ const PositionValidationScreen = () => {
     updateCurrentPosition(value);
   };
 
-
   const updateCurrentPosition = (time: number) => {
-    const position = positions.find(p => time >= (p.startTime || 0) && time <= (p.endTime || duration));
+    const position = positions.find(p => time >= p.startTime && time <= p.endTime);
     setCurrentPosition(position || null);
   };
 
   const handleEditPosition = (position: Position) => {
-    setEditingPosition(position);
+    navigation.navigate('SearchPosition', {
+      position,
+      onUpdate: (updatedPosition: Position) => {
+        const updatedPositions = positions.map(p => 
+          p.id === updatedPosition.id ? updatedPosition : p
+        );
+        setPositions(updatedPositions);
+        updateBackend(updatedPosition);
+      }
+    });
   };
 
-  const handleSavePosition = async () => {
-    if (!editingPosition) return;
-
+  const updateBackend = async (updatedPosition: Position) => {
     try {
       await axios.post(`${API_URL}/update_position`, {
         jobId,
         userId,
-        positionId: editingPosition.id,
-        newName: editingPosition.name,
+        positionId: updatedPosition.id,
+        newName: updatedPosition.name,
       });
-
-      setPositions(positions.map(p => p.id === editingPosition.id ? editingPosition : p));
-      setEditingPosition(null);
       Alert.alert('Success', 'Position updated successfully');
     } catch (error) {
       console.error('Error updating position:', error);
@@ -100,17 +125,82 @@ const PositionValidationScreen = () => {
         style={[
           styles.positionMarker,
           {
-            left: `${((position.startTime || 0) / duration) * 100}%`,
-            width: `${(((position.endTime || duration) - (position.startTime || 0)) / duration) * 100}%`,
+            left: `${(position.startTime / duration) * 100}%`,
+            width: `${((position.endTime - position.startTime) / duration) * 100}%`,
           },
         ]}
       />
     ));
   };
 
+  const renderPositionTable = () => {
+    const tableHead = ['Position', 'Start Time', 'End Time', 'Duration', 'Edit'];
+    const tableData = positions.map(position => [
+      position.name,
+      position.startTime.toFixed(2),
+      position.endTime.toFixed(2),
+      position.duration.toFixed(2),
+      <TouchableOpacity key={position.id} onPress={() => handleEditPosition(position)}>
+        <Text style={styles.editButtonText}>Edit</Text>
+      </TouchableOpacity>
+    ]);
+
+    const tableProps: TableProps = {
+      borderStyle: {borderWidth: 1, borderColor: '#C1C0B9'}
+    };
+
+    return (
+      <Table {...tableProps}>
+        <Row data={tableHead} style={styles.head as ViewStyle} textStyle={styles.text}/>
+        {
+          tableData.map((rowData, index) => (
+            <Row
+              key={index}
+              data={rowData}
+              style={[styles.row, index % 2 ? {backgroundColor: '#F7F6E7'} : {}] as ViewStyle}
+              textStyle={styles.text}
+            />
+          ))
+        }
+      </Table>
+    );
+  };
+
+  const handleVideoError = (e: {
+    error: {
+      errorString?: string;
+      errorCode?: string;
+      error?: string;
+      code?: number;
+      domain?: string;
+    };
+  }) => {
+    console.error('Video playback error:', e.error);
+    setError(`Error playing video: ${e.error.errorString || e.error.error || 'Unknown error'}`);
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity onPress={fetchProcessedData} style={styles.retryButton}>
+          <Text style={styles.retryButtonText}>Retry</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
-      {/* ... (other JSX remains the same) */}
       {fileType === 'video' && mediaUrl && (
         <View>
           <Video
@@ -118,12 +208,17 @@ const PositionValidationScreen = () => {
             source={{ uri: mediaUrl }}
             style={styles.media}
             resizeMode="contain"
-            onLoad={(data) => setDuration(data.duration)}
-            onProgress={(data) => setCurrentTime(data.currentTime)}
+            onLoad={(data: OnLoadData) => setDuration(data.duration)}
+            onProgress={(data: OnProgressData) => setCurrentTime(data.currentTime)}
+            onError={handleVideoError}
             paused={!isPlaying}
           />
+
           <View style={styles.videoControls}>
-            <TouchableOpacity onPress={() => setIsPlaying(!isPlaying)}>
+            <TouchableOpacity 
+              onPress={() => setIsPlaying(!isPlaying)}
+              accessibilityLabel={isPlaying ? "Pause video" : "Play video"}
+            >
               <Text>{isPlaying ? 'Pause' : 'Play'}</Text>
             </TouchableOpacity>
             <View style={styles.sliderContainer}>
@@ -134,6 +229,7 @@ const PositionValidationScreen = () => {
                 maximumValue={duration}
                 value={currentTime}
                 onValueChange={handleSliderChange}
+                accessibilityLabel="Video progress slider"
               />
             </View>
           </View>
@@ -143,65 +239,32 @@ const PositionValidationScreen = () => {
       <View style={styles.positionInfo}>
         <Text style={styles.positionTitle}>Current Position:</Text>
         <Text style={styles.positionName}>{currentPosition?.name || 'Unknown'}</Text>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => currentPosition && handleEditPosition(currentPosition)}
-        >
-          <Text style={styles.editButtonText}>Edit</Text>
-        </TouchableOpacity>
       </View>
 
-      {editingPosition && (
-        <View style={styles.editForm}>
-          <TextInput
-            style={styles.input}
-            value={editingPosition.name}
-            onChangeText={(text) => setEditingPosition({ ...editingPosition, name: text })}
-            placeholder="Enter new position name"
-          />
-          <TouchableOpacity style={styles.saveButton} onPress={handleSavePosition}>
-            <Text style={styles.saveButtonText}>Save</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
       <View style={styles.positionList}>
-        <Text style={styles.positionListTitle}>All Detected Positions:</Text>
-        {positions.map((position, index) => (
-          <View key={index} style={styles.positionItem}>
-            <Text>{position.name}</Text>
-            {fileType === 'video' && (
-              <Text>
-                {`${position.startTime?.toFixed(2)}s - ${position.endTime?.toFixed(2)}s`}
-              </Text>
-            )}
-            <TouchableOpacity
-              style={styles.editButton}
-              onPress={() => handleEditPosition(position)}
-            >
-              <Text style={styles.editButtonText}>Edit</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+        <Text style={styles.positionListTitle}>Detected Positions:</Text>
+        {renderPositionTable()}
       </View>
     </ScrollView>
   );
 };
 
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
   media: {
     width: '100%',
-    height: 300,
-    marginBottom: 20,
+    height: 200,
   },
   videoControls: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginTop: 10,
   },
   sliderContainer: {
     flex: 1,
@@ -214,10 +277,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 5,
     backgroundColor: 'red',
-    top: 10,
+    opacity: 0.5,
   },
   positionInfo: {
-    marginBottom: 20,
+    marginTop: 20,
   },
   positionTitle: {
     fontSize: 18,
@@ -227,36 +290,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
   },
-  editButton: {
-    backgroundColor: '#007AFF',
-    padding: 5,
-    borderRadius: 5,
-    marginTop: 5,
-  },
-  editButtonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-  editForm: {
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  },
-  saveButton: {
-    backgroundColor: '#4CD964',
-    padding: 10,
-    borderRadius: 5,
-  },
-  saveButtonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
   positionList: {
     marginTop: 20,
   },
@@ -265,11 +298,46 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  positionItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  head: { 
+    height: 40, 
+    backgroundColor: '#f1f8ff' 
+  },
+  text: { 
+    margin: 6 
+  },
+  row: { 
+    flexDirection: 'row', 
+    backgroundColor: '#FFF1C1' 
+  },
+  editButtonText: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  retryButton: {
+    backgroundColor: '#007AFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  retryButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 

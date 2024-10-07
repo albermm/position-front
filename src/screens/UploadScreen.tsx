@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, Alert, Button, Text } from 'react-native';
+import 'react-native-url-polyfill/auto';
+import { View, Button, Image, Text, StyleSheet, Alert, ScrollView } from 'react-native';
 import { launchImageLibrary, ImageLibraryOptions, Asset } from 'react-native-image-picker';
 import Video from 'react-native-video';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext'; 
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing';
-
-type UploadScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Upload'>;
 
 const UploadScreen: React.FC = () => {
   const [selectedMedia, setSelectedMedia] = useState<string | null>(null);
@@ -18,7 +16,6 @@ const UploadScreen: React.FC = () => {
   const [result, setResult] = useState<{ mediaUrl: string; positionName: string; mediaType: 'image' | 'video' } | null>(null);
   const [currentJobId, setCurrentJobId] = useState<string | null>(null);
 
-  const navigation = useNavigation<UploadScreenNavigationProp>();
   const { getCredentials, signOut } = useAuth();
 
   const pickMedia = async () => {
@@ -50,7 +47,9 @@ const UploadScreen: React.FC = () => {
 
     try {
       const credentials = await getCredentials();
+      console.log('Obtained credentials:', credentials.identityId);
       const mediaType = asset.type?.startsWith('video') ? 'video' : 'image';
+      console.log('Requesting upload URL for media type:', mediaType);
 
       const urlResponse = await axios.get(`${API_URL}/get_upload_url`, {
         params: { 
@@ -62,7 +61,11 @@ const UploadScreen: React.FC = () => {
         }
       });
 
+      console.log('Received upload URL response:', urlResponse.data);
+
       const { file_name, presigned_post, job_id } = urlResponse.data;
+
+      const actualFileName = file_name;
 
       const formData = new FormData();
       Object.entries(presigned_post.fields).forEach(([key, value]) => {
@@ -72,8 +75,10 @@ const UploadScreen: React.FC = () => {
       formData.append('file', {
         uri: asset.uri,
         type: asset.type || 'image/jpeg',
-        name: file_name,
+        name: actualFileName,
       } as any);
+
+      console.log(`Uploading file: ${actualFileName}`);
 
       const uploadResponse = await fetch(presigned_post.url, {
         method: 'POST',
@@ -87,6 +92,8 @@ const UploadScreen: React.FC = () => {
         throw new Error(`Upload failed with status ${uploadResponse.status}`);
       }
 
+      console.log(`File uploaded successfully. File name: ${actualFileName}, Job ID: ${job_id}`);
+
       setCurrentJobId(job_id);
       if (mediaType === 'video') {
         Alert.alert('Success', 'Video uploaded successfully. Processing may take longer for videos.');
@@ -95,6 +102,11 @@ const UploadScreen: React.FC = () => {
       }
     } catch (error) {
       console.error('Error in uploadMedia:', error);
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error details:', error.response?.data);
+        console.error('Axios error status:', error.response?.status);
+        console.error('Axios error headers:', error.response?.headers);
+      }
       Alert.alert('Error', `Failed to upload media: ${(error as Error).message}`);
     } finally {
       setIsUploading(false);
@@ -139,7 +151,7 @@ const UploadScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Button title="Pick an image or video" onPress={pickMedia} />
       <Button title="Sign Out" onPress={signOut} />
       {isUploading && <Text>Uploading...</Text>}
@@ -153,16 +165,11 @@ const UploadScreen: React.FC = () => {
           {result.mediaType === 'image' ? (
             <Image source={{ uri: result.mediaUrl }} style={styles.media} />
           ) : (
-            <Video 
-              source={{ uri: result.mediaUrl }} 
-              style={styles.media}
-              controls={true}
-              resizeMode="contain"
-            />
+            <Video source={{ uri: result.mediaUrl }} style={styles.media} controls />
           )}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
