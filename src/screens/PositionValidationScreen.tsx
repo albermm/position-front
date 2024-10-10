@@ -6,13 +6,8 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { Table, Row, TableProps } from 'react-native-table-component';
-
-
-type RouteParams = {
-  jobId: string;
-  fileType: 'image' | 'video';
-  userId: string;
-};
+import { useAuth } from '../context/AuthContext';
+import { RootStackParamList } from '../navigation/AppNavigator';
 
 type Position = {
   id: string;
@@ -22,53 +17,50 @@ type Position = {
   duration: number;
 };
 
-type RootStackParamList = {
-  SearchPosition: {
-    position: Position;
-    onUpdate: (updatedPosition: Position) => void;
-  };
-  PositionValidation: RouteParams;
-};
-
-type PositionValidationScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'PositionValidation'
->;
+type PositionValidationScreenRouteProp = RouteProp<RootStackParamList, 'PositionValidation'>;
+type PositionValidationScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PositionValidation'>;
 
 const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing';
 
 const PositionValidationScreen: React.FC = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'PositionValidation'>>();
-  const { jobId, fileType, userId } = route.params;
+  const { jobId, fileType, userId, s3Path, processingEndTime, videoUrl, positions: initialPositions } = route.params;
   const navigation = useNavigation<PositionValidationScreenNavigationProp>();
+  const { getCredentials } = useAuth();
 
-  const [mediaUrl, setMediaUrl] = useState<string | null>(null);
-  const [positions, setPositions] = useState<Position[]>([]);
+  const [mediaUrl, setMediaUrl] = useState<string | null>(videoUrl || null);
+  const [positions, setPositions] = useState<Position[]>(initialPositions || []);
   const [currentPosition, setCurrentPosition] = useState<Position | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const videoRef = useRef<VideoRef>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchProcessedData();
-  }, []);
+  const videoRef = useRef<VideoRef>(null);
 
   const fetchProcessedData = async () => {
+    console.log('Fetching processed data...');
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_URL}/get_job_status/${jobId}?user_id=${userId}`);
-      const { status, video_url, positions } = response.data;
+      const credentials = await getCredentials();
+      const response = await axios.get(`${API_URL}/get_processed_data`, {
+        params: { 
+          user_id: userId,
+          job_id: jobId,
+          s3_path: s3Path
+        },
+        headers: {
+          'Authorization': `Bearer ${credentials.token}`
+        }
+      });
+      console.log('API response:', response.data);
+      const { video_url, positions } = response.data;
 
-      if (status === 'COMPLETED') {
-        setMediaUrl(video_url);
-        setPositions(positions);
-      } else {
-        setError('Processing not completed yet. Please try again later.');
-      }
+      console.log('Setting mediaUrl:', video_url);
+      setMediaUrl(video_url);
+      console.log('Setting positions:', positions);
+      setPositions(positions);
     } catch (error) {
       console.error('Error fetching processed data:', error);
       setError('Failed to fetch processed data. Please try again.');
@@ -76,6 +68,13 @@ const PositionValidationScreen: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log('PositionValidationScreen mounted');
+    fetchProcessedData();
+  }, []);
+
+
 
   const handleSliderChange = (value: number) => {
     setCurrentTime(value);
@@ -199,26 +198,32 @@ const PositionValidationScreen: React.FC = () => {
     );
   }
 
+  console.log('Rendering main content');
+  console.log('fileType:', fileType);
+  console.log('mediaUrl:', mediaUrl);
+
   return (
     <ScrollView style={styles.container}>
-      {fileType === 'video' && mediaUrl && (
+      {fileType === 'video' && mediaUrl ? (
         <View>
           <Video
             ref={videoRef}
             source={{ uri: mediaUrl }}
             style={styles.media}
             resizeMode="contain"
-            onLoad={(data: OnLoadData) => setDuration(data.duration)}
+            onLoad={(data: OnLoadData) => {
+              console.log('Video loaded. Duration:', data.duration);
+              setDuration(data.duration);
+            }}
             onProgress={(data: OnProgressData) => setCurrentTime(data.currentTime)}
-            onError={handleVideoError}
+            onError={(e) => {
+              console.error('Video error:', e);
+              setError(`Error playing video: ${e.error.errorString || e.error.error || 'Unknown error'}`);
+            }}
             paused={!isPlaying}
           />
-
           <View style={styles.videoControls}>
-            <TouchableOpacity 
-              onPress={() => setIsPlaying(!isPlaying)}
-              accessibilityLabel={isPlaying ? "Pause video" : "Play video"}
-            >
+            <TouchableOpacity onPress={() => setIsPlaying(!isPlaying)}>
               <Text>{isPlaying ? 'Pause' : 'Play'}</Text>
             </TouchableOpacity>
             <View style={styles.sliderContainer}>
@@ -229,11 +234,12 @@ const PositionValidationScreen: React.FC = () => {
                 maximumValue={duration}
                 value={currentTime}
                 onValueChange={handleSliderChange}
-                accessibilityLabel="Video progress slider"
               />
             </View>
           </View>
         </View>
+      ) : (
+        <Text>No video available</Text>
       )}
 
       <View style={styles.positionInfo}>
@@ -243,14 +249,11 @@ const PositionValidationScreen: React.FC = () => {
 
       <View style={styles.positionList}>
         <Text style={styles.positionListTitle}>Detected Positions:</Text>
-        {renderPositionTable()}
+        {positions.length > 0 ? renderPositionTable() : <Text>No positions detected</Text>}
       </View>
     </ScrollView>
   );
 };
-
-
-
 
 const styles = StyleSheet.create({
   container: {

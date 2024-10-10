@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BJJFrontTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BJJFrontTests.m */; };
-		01AB66A157E3AACFE1F48B53 /* libPods-BJJFront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9669A6C27B4309E0F9E3F65C /* libPods-BJJFront.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1D4BF1D309C8CF516CE58FC4 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7DBD11070AB83E6E027541 /* libPods-BJJFront-BJJFrontTests.a */; };
 		573FECB27DC2022DB7FF367B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CC59C71967625D893615EA29 /* PrivacyInfo.xcprivacy */; };
+		7692BD24F593723E4FBCECF6 /* libPods-BJJFront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5302B2D359FE3B352D8DC08D /* libPods-BJJFront.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9279D8B725B918CF3000E5B2 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B797A33CE011EC1FDB63ACF8 /* libPods-BJJFront-BJJFrontTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +31,7 @@
 		00E356EE1AD99517003FC87E /* BJJFrontTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BJJFrontTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* BJJFrontTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BJJFrontTests.m; sourceTree = "<group>"; };
+		0EEBFD64B71BCC59F8A95ED6 /* Pods-BJJFront.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.release.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* BJJFront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BJJFront.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BJJFront/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = BJJFront/AppDelegate.mm; sourceTree = "<group>"; };
@@ -38,15 +39,14 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BJJFront/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BJJFront/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BJJFront/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1B7DBD11070AB83E6E027541 /* libPods-BJJFront-BJJFrontTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront-BJJFrontTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C9FDE0CBFC0A76213F49868 /* Pods-BJJFront.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.debug.xcconfig"; sourceTree = "<group>"; };
+		5302B2D359FE3B352D8DC08D /* libPods-BJJFront.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ABBC21DA96B43A2E4926057 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BJJFront/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8DC11C91312E9BDB49F45B29 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9669A6C27B4309E0F9E3F65C /* libPods-BJJFront.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A526911A05AB487B123BDE90 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.release.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.release.xcconfig"; sourceTree = "<group>"; };
+		B797A33CE011EC1FDB63ACF8 /* libPods-BJJFront-BJJFrontTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BJJFront-BJJFrontTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC59C71967625D893615EA29 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = BJJFront/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E0EEA5F34604AA5A0D81C676 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront-BJJFrontTests.release.xcconfig"; path = "Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F0235B32BE0346FE2A935BC3 /* Pods-BJJFront.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.release.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.release.xcconfig"; sourceTree = "<group>"; };
+		F5769B9F0B0745A8E40E70EA /* Pods-BJJFront.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BJJFront.debug.xcconfig"; path = "Target Support Files/Pods-BJJFront/Pods-BJJFront.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D4BF1D309C8CF516CE58FC4 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */,
+				9279D8B725B918CF3000E5B2 /* libPods-BJJFront-BJJFrontTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01AB66A157E3AACFE1F48B53 /* libPods-BJJFront.a in Frameworks */,
+				7692BD24F593723E4FBCECF6 /* libPods-BJJFront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				9669A6C27B4309E0F9E3F65C /* libPods-BJJFront.a */,
-				1B7DBD11070AB83E6E027541 /* libPods-BJJFront-BJJFrontTests.a */,
+				5302B2D359FE3B352D8DC08D /* libPods-BJJFront.a */,
+				B797A33CE011EC1FDB63ACF8 /* libPods-BJJFront-BJJFrontTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,10 +145,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7C9FDE0CBFC0A76213F49868 /* Pods-BJJFront.debug.xcconfig */,
-				F0235B32BE0346FE2A935BC3 /* Pods-BJJFront.release.xcconfig */,
-				8DC11C91312E9BDB49F45B29 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */,
-				A526911A05AB487B123BDE90 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */,
+				F5769B9F0B0745A8E40E70EA /* Pods-BJJFront.debug.xcconfig */,
+				0EEBFD64B71BCC59F8A95ED6 /* Pods-BJJFront.release.xcconfig */,
+				7ABBC21DA96B43A2E4926057 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */,
+				E0EEA5F34604AA5A0D81C676 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -160,12 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BJJFrontTests" */;
 			buildPhases = (
-				61FE8A67EA5149D781C3D685 /* [CP] Check Pods Manifest.lock */,
+				33B92C7B39BC13054933915E /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A655315B0BACDF19330938B9 /* [CP] Embed Pods Frameworks */,
-				BBFEA6B9CD253541EE2C61D7 /* [CP] Copy Pods Resources */,
+				22F5DF0D70CF00454BC7A9E8 /* [CP] Embed Pods Frameworks */,
+				A62E70155A6E806FCF36E987 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,13 +181,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BJJFront" */;
 			buildPhases = (
-				8BDE7C9AAD126243691605EB /* [CP] Check Pods Manifest.lock */,
+				0B37D1E58F0C48DB614F2128 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7A8D0F9A7D59C8234C9F9941 /* [CP] Embed Pods Frameworks */,
-				8C03D01C541AE94E60D7B987 /* [CP] Copy Pods Resources */,
+				61E09EE688C4B7E7EEA7F585 /* [CP] Embed Pods Frameworks */,
+				1AD32E944E1D873B4EC4DA21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,46 +271,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		61FE8A67EA5149D781C3D685 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BJJFront-BJJFrontTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7A8D0F9A7D59C8234C9F9941 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8BDE7C9AAD126243691605EB /* [CP] Check Pods Manifest.lock */ = {
+		0B37D1E58F0C48DB614F2128 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -332,7 +293,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C03D01C541AE94E60D7B987 /* [CP] Copy Pods Resources */ = {
+		1AD32E944E1D873B4EC4DA21 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -349,7 +310,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A655315B0BACDF19330938B9 /* [CP] Embed Pods Frameworks */ = {
+		22F5DF0D70CF00454BC7A9E8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,7 +327,46 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront-BJJFrontTests/Pods-BJJFront-BJJFrontTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BBFEA6B9CD253541EE2C61D7 /* [CP] Copy Pods Resources */ = {
+		33B92C7B39BC13054933915E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BJJFront-BJJFrontTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61E09EE688C4B7E7EEA7F585 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BJJFront/Pods-BJJFront-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A62E70155A6E806FCF36E987 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -416,7 +416,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8DC11C91312E9BDB49F45B29 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */;
+			baseConfigurationReference = 7ABBC21DA96B43A2E4926057 /* Pods-BJJFront-BJJFrontTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -443,7 +443,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A526911A05AB487B123BDE90 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */;
+			baseConfigurationReference = E0EEA5F34604AA5A0D81C676 /* Pods-BJJFront-BJJFrontTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -467,7 +467,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C9FDE0CBFC0A76213F49868 /* Pods-BJJFront.debug.xcconfig */;
+			baseConfigurationReference = F5769B9F0B0745A8E40E70EA /* Pods-BJJFront.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -494,7 +494,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0235B32BE0346FE2A935BC3 /* Pods-BJJFront.release.xcconfig */;
+			baseConfigurationReference = 0EEBFD64B71BCC59F8A95ED6 /* Pods-BJJFront.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
