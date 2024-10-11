@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator, ViewStyle, Switch } from 'react-native';
 import Video, { OnLoadData, OnProgressData, VideoRef } from 'react-native-video';
 import Slider from '@react-native-community/slider';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
@@ -10,11 +10,12 @@ import { useAuth } from '../context/AuthContext';
 import { RootStackParamList } from '../navigation/AppNavigator';
 
 type Position = {
-  id: string;
+  player_id: string;
   name: string;
-  startTime: number;
-  endTime: number;
+  start_time: number;
+  end_time: number;
   duration: number;
+  video_timestamp: number;
 };
 
 type PositionValidationScreenRouteProp = RouteProp<RootStackParamList, 'PositionValidation'>;
@@ -23,19 +24,20 @@ type PositionValidationScreenNavigationProp = NativeStackNavigationProp<RootStac
 const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing';
 
 const PositionValidationScreen: React.FC = () => {
-  const route = useRoute<RouteProp<RootStackParamList, 'PositionValidation'>>();
-  const { jobId, fileType, userId, s3Path, processingEndTime, videoUrl, positions: initialPositions } = route.params;
+  const route = useRoute<PositionValidationScreenRouteProp>();
+  const { jobId, fileType, userId, s3Path } = route.params;
   const navigation = useNavigation<PositionValidationScreenNavigationProp>();
   const { getCredentials } = useAuth();
 
-  const [mediaUrl, setMediaUrl] = useState<string | null>(videoUrl || null);
-  const [positions, setPositions] = useState<Position[]>(initialPositions || []);
-  const [currentPosition, setCurrentPosition] = useState<Position | null>(null);
+  const [processedVideoUrl, setProcessedVideoUrl] = useState<string | null>(null);
+  const [positions, setPositions] = useState<Position[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPlayer1, setShowPlayer1] = useState(true);
+  const [showPlayer2, setShowPlayer2] = useState(true);
   const videoRef = useRef<VideoRef>(null);
 
   const fetchProcessedData = async () => {
@@ -47,8 +49,7 @@ const PositionValidationScreen: React.FC = () => {
       const response = await axios.get(`${API_URL}/get_processed_data`, {
         params: { 
           user_id: userId,
-          job_id: jobId,
-          s3_path: s3Path
+          job_id: jobId
         },
         headers: {
           'Authorization': `Bearer ${credentials.token}`
@@ -57,8 +58,8 @@ const PositionValidationScreen: React.FC = () => {
       console.log('API response:', response.data);
       const { video_url, positions } = response.data;
 
-      console.log('Setting mediaUrl:', video_url);
-      setMediaUrl(video_url);
+      console.log('Setting processedVideoUrl:', video_url);
+      setProcessedVideoUrl(video_url);
       console.log('Setting positions:', positions);
       setPositions(positions);
     } catch (error) {
@@ -74,19 +75,11 @@ const PositionValidationScreen: React.FC = () => {
     fetchProcessedData();
   }, []);
 
-
-
   const handleSliderChange = (value: number) => {
     setCurrentTime(value);
     if (videoRef.current) {
       videoRef.current.seek(value);
     }
-    updateCurrentPosition(value);
-  };
-
-  const updateCurrentPosition = (time: number) => {
-    const position = positions.find(p => time >= p.startTime && time <= p.endTime);
-    setCurrentPosition(position || null);
   };
 
   const handleEditPosition = (position: Position) => {
@@ -94,7 +87,8 @@ const PositionValidationScreen: React.FC = () => {
       position,
       onUpdate: (updatedPosition: Position) => {
         const updatedPositions = positions.map(p => 
-          p.id === updatedPosition.id ? updatedPosition : p
+          p.player_id === updatedPosition.player_id && p.start_time === updatedPosition.start_time
+            ? updatedPosition : p
         );
         setPositions(updatedPositions);
         updateBackend(updatedPosition);
@@ -104,11 +98,16 @@ const PositionValidationScreen: React.FC = () => {
 
   const updateBackend = async (updatedPosition: Position) => {
     try {
+      const credentials = await getCredentials();
       await axios.post(`${API_URL}/update_position`, {
-        jobId,
-        userId,
-        positionId: updatedPosition.id,
-        newName: updatedPosition.name,
+        job_id: jobId,
+        user_id: userId,
+        position_id: `${updatedPosition.player_id}-${updatedPosition.start_time}`,
+        new_name: updatedPosition.name
+      }, {
+        headers: {
+          'Authorization': `Bearer ${credentials.token}`
+        }
       });
       Alert.alert('Success', 'Position updated successfully');
     } catch (error) {
@@ -118,31 +117,37 @@ const PositionValidationScreen: React.FC = () => {
   };
 
   const renderPositionMarkers = () => {
-    return positions.map((position, index) => (
-      <View
-        key={index}
-        style={[
-          styles.positionMarker,
-          {
-            left: `${(position.startTime / duration) * 100}%`,
-            width: `${((position.endTime - position.startTime) / duration) * 100}%`,
-          },
-        ]}
-      />
-    ));
+    return positions
+      .filter(p => (p.player_id === '1' && showPlayer1) || (p.player_id === '2' && showPlayer2))
+      .map((position, index) => (
+        <View
+          key={`${position.player_id}-${position.start_time}`}
+          style={[
+            styles.positionMarker,
+            {
+              left: `${(position.start_time / duration) * 100}%`,
+              width: `${((position.end_time - position.start_time) / duration) * 100}%`,
+              backgroundColor: position.player_id === '1' ? 'red' : 'blue',
+            },
+          ]}
+        />
+      ));
   };
 
   const renderPositionTable = () => {
-    const tableHead = ['Position', 'Start Time', 'End Time', 'Duration', 'Edit'];
-    const tableData = positions.map(position => [
-      position.name,
-      position.startTime.toFixed(2),
-      position.endTime.toFixed(2),
-      position.duration.toFixed(2),
-      <TouchableOpacity key={position.id} onPress={() => handleEditPosition(position)}>
-        <Text style={styles.editButtonText}>Edit</Text>
-      </TouchableOpacity>
-    ]);
+    const tableHead = ['Player', 'Position', 'Start Time', 'End Time', 'Duration', 'Edit'];
+    const tableData = positions
+      .filter(p => (p.player_id === '1' && showPlayer1) || (p.player_id === '2' && showPlayer2))
+      .map(position => [
+        position.player_id,
+        position.name,
+        position.start_time.toFixed(2),
+        position.end_time.toFixed(2),
+        position.duration.toFixed(2),
+        <TouchableOpacity key={`${position.player_id}-${position.start_time}`} onPress={() => handleEditPosition(position)}>
+          <Text style={styles.editButtonText}>Edit</Text>
+        </TouchableOpacity>
+      ]);
 
     const tableProps: TableProps = {
       borderStyle: {borderWidth: 1, borderColor: '#C1C0B9'}
@@ -156,26 +161,16 @@ const PositionValidationScreen: React.FC = () => {
             <Row
               key={index}
               data={rowData}
-              style={[styles.row, index % 2 ? {backgroundColor: '#F7F6E7'} : {}] as ViewStyle}
+              style={[
+                styles.row,
+                { backgroundColor: rowData[0] === '1' ? '#FFE8E8' : '#E8E8FF' }
+              ] as ViewStyle}
               textStyle={styles.text}
             />
           ))
         }
       </Table>
     );
-  };
-
-  const handleVideoError = (e: {
-    error: {
-      errorString?: string;
-      errorCode?: string;
-      error?: string;
-      code?: number;
-      domain?: string;
-    };
-  }) => {
-    console.error('Video playback error:', e.error);
-    setError(`Error playing video: ${e.error.errorString || e.error.error || 'Unknown error'}`);
   };
 
   if (isLoading) {
@@ -198,17 +193,13 @@ const PositionValidationScreen: React.FC = () => {
     );
   }
 
-  console.log('Rendering main content');
-  console.log('fileType:', fileType);
-  console.log('mediaUrl:', mediaUrl);
-
   return (
     <ScrollView style={styles.container}>
-      {fileType === 'video' && mediaUrl ? (
+      {fileType === 'video' && processedVideoUrl ? (
         <View>
           <Video
             ref={videoRef}
-            source={{ uri: mediaUrl }}
+            source={{ uri: processedVideoUrl }}
             style={styles.media}
             resizeMode="contain"
             onLoad={(data: OnLoadData) => {
@@ -242,9 +233,15 @@ const PositionValidationScreen: React.FC = () => {
         <Text>No video available</Text>
       )}
 
-      <View style={styles.positionInfo}>
-        <Text style={styles.positionTitle}>Current Position:</Text>
-        <Text style={styles.positionName}>{currentPosition?.name || 'Unknown'}</Text>
+      <View style={styles.filterContainer}>
+        <View style={styles.filterItem}>
+          <Text>Player 1</Text>
+          <Switch value={showPlayer1} onValueChange={setShowPlayer1} />
+        </View>
+        <View style={styles.filterItem}>
+          <Text>Player 2</Text>
+          <Switch value={showPlayer2} onValueChange={setShowPlayer2} />
+        </View>
       </View>
 
       <View style={styles.positionList}>

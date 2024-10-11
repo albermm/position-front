@@ -20,8 +20,8 @@ const JobStatusScreen: React.FC<JobStatusScreenProps> = ({ route, navigation }) 
   const { jobId, userId } = route.params;
   const [jobStatus, setJobStatus] = useState('');
   const [progress, setProgress] = useState(0);
+  const [processedVideoUrl, setProcessedVideoUrl] = useState<string | null>(null);
   const { getCredentials } = useAuth();
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const checkProcessingStatus = async () => {
@@ -33,26 +33,21 @@ const JobStatusScreen: React.FC<JobStatusScreenProps> = ({ route, navigation }) 
             'Authorization': `Bearer ${credentials.token}`
           }
         });
-        const { status, progress: jobProgress, file_type, processing_end_time, s3_path } = response.data;
+        const { status, progress, file_type, processed_video_s3_path, s3_path } = response.data;
         setJobStatus(status);
 
         if (status === 'PROCESSING') {
-          setProgress(parseFloat(jobProgress) || 0);
+          setProgress(progress || 0);
         } else if (status === 'COMPLETED') {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-          }
+          setProcessedVideoUrl(processed_video_s3_path);
           navigation.navigate('PositionValidation', { 
             jobId, 
             userId, 
             fileType: file_type,
             s3Path: s3_path,
-            processingEndTime: processing_end_time
+            processedVideoUrl: processed_video_s3_path
           });
         } else if (status === 'FAILED') {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-          }
           Alert.alert('Processing Failed', 'The file processing has failed. Please try uploading again.');
           navigation.goBack();
         }
@@ -62,13 +57,9 @@ const JobStatusScreen: React.FC<JobStatusScreenProps> = ({ route, navigation }) 
       }
     };
 
-    intervalRef.current = setInterval(checkProcessingStatus, 5000); // Check every 5 seconds
+    const intervalId = setInterval(checkProcessingStatus, 5000); // Check every 5 seconds
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
+    return () => clearInterval(intervalId);
   }, [jobId, userId, navigation, getCredentials]);
 
   return (
@@ -82,7 +73,6 @@ const JobStatusScreen: React.FC<JobStatusScreenProps> = ({ route, navigation }) 
           </View>
         </View>
       )}
-      <ActivityIndicator size="large" color="#0000ff" />
     </View>
   );
 };
