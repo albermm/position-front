@@ -25,7 +25,7 @@ const API_URL = 'https://sflkpf7ivf.execute-api.us-east-1.amazonaws.com/testing'
 
 const PositionValidationScreen: React.FC = () => {
   const route = useRoute<PositionValidationScreenRouteProp>();
-  const { jobId, fileType, userId, s3Path } = route.params;
+  const { jobId, fileType, userId } = route.params;
   const navigation = useNavigation<PositionValidationScreenNavigationProp>();
   const { getCredentials } = useAuth();
 

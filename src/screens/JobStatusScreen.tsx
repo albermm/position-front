@@ -44,7 +44,6 @@ const JobStatusScreen: React.FC<JobStatusScreenProps> = ({ route, navigation }) 
             jobId, 
             userId, 
             fileType: file_type,
-            s3Path: s3_path,
             processedVideoUrl: processed_video_s3_path
           });
         } else if (status === 'FAILED') {
